@@ -8,3 +8,13 @@ C:\Users\User\source\repos\20201126 Test of Button Concept\20201126 Test of Butt
 C:\Users\User\source\repos\20201126 Test of Button Concept\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\20201126 Test of Button Concept\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.exe
 C:\Users\User\source\repos\20201126 Test of Button Concept\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.pdb
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\bin\Debug\20201126 Test of Button Concept.exe.config
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\bin\Debug\20201126 Test of Button Concept.exe
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\bin\Debug\20201126 Test of Button Concept.pdb
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.csprojAssemblyReference.cache
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\_20201126_Test_of_Button_Concept.Form1.resources
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\_20201126_Test_of_Button_Concept.Properties.Resources.resources
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.csproj.GenerateResource.cache
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.csproj.CoreCompileInputs.cache
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.exe
+C:\Users\User\Software\C#\Games\Chess\20201126 Test of Button Concept\obj\Debug\20201126 Test of Button Concept.pdb

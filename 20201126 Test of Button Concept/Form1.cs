@@ -7,9 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+
+
 
 namespace _20201126_Test_of_Button_Concept
 {
+
     public partial class Form1 : Form
     {
         int[] rowVector = { -2, -2, -1, -1, 1, 1, 2, 2 };
@@ -18,11 +22,12 @@ namespace _20201126_Test_of_Button_Concept
         {
             InitializeComponent();
         }
-
         bool playerOneTurn = true;
         bool firstSelectionMade = false;
         bool checkingIfInCheck = false;
-        bool checkingForCheckMate = false;
+        bool foundCheck = false;
+        int possibleMoves = 0;
+        int movesThatCauseCheck = 0;
         //need to keep track of king positions to look for check
         int wKingRow = 7;
         int wKingCol = 3;
@@ -36,13 +41,11 @@ namespace _20201126_Test_of_Button_Concept
         PictureBox secondSelection = null;
         PictureBox copyOfSecondSelection = new PictureBox();
 
-        List<Control> hasBlackInCheck = new List<Control>();
-        List<Control> hasWhiteInCheck = new List<Control>();
-
         private void onClick(object sender, EventArgs e)
         {
             if (!firstSelectionMade)
             {
+                unHighlightMoves();
                 firstSelection = sender as PictureBox;
                 string pieceType = (string)firstSelection.Tag;
                 if (playerOneTurn && pieceType[0] == 'w' || !playerOneTurn && pieceType[0] == 'b')  //if they chose one of their pieces
@@ -52,17 +55,17 @@ namespace _20201126_Test_of_Button_Concept
                     copyOfFirstSelection.Tag = firstSelection.Tag;
                     firstSelection.BackColor = System.Drawing.Color.Red;    //highlight cell
                     disableControls();
-                    focusOnSelection(firstSelection);
+                    extractPictureBoxInformation(firstSelection);
+                    possibleMoves = 0;
+                    movesThatCauseCheck = 0;
+                    //focusOnSelection(firstSelection);
                     firstSelectionMade = true;
-
-
                 }
             }
             else
             {
                 secondSelection = sender as PictureBox;
                 firstSelectionMade = false;
-
                 //if player selects any non movable space
                 if (secondSelection.BackColor != System.Drawing.Color.Pink)
                 {
@@ -81,60 +84,28 @@ namespace _20201126_Test_of_Button_Concept
                         bKingCol = gridTLP.GetColumn(secondSelection);
                         bKingRow = gridTLP.GetRow(secondSelection);
                     }
-
                     //copy second to clone
                     copyOfSecondSelection.Tag = secondSelection.Tag;
                     copyOfSecondSelection.Image = secondSelection.Image;
-
                     //revert first to original colour
                     firstSelection.BackColor = copyOfFirstSelection.BackColor;
-
                     //move second on top of first
                     secondSelection.Tag = firstSelection.Tag;
                     secondSelection.Image = firstSelection.Image;
                     firstSelection.Tag = "empty";
                     firstSelection.Image = null;
+                    possibleMoves = 0;
+                    movesThatCauseCheck = 0;
+                    testForCheck();
+                    
 
-                    playerOneTurn = !playerOneTurn;
-
-                    if (checkForCheck())
+                    if (movesThatCauseCheck == 1)
                     {
-                        List<System.Drawing.Color> colourList = new List<Color>();
-
-                        if (hasBlackInCheck.Count > 0)
-                        {
-                            for (int i = 0; i < hasBlackInCheck.Count; i++)
-                            {
-                                colourList.Add(hasBlackInCheck[i].BackColor);
-                                hasBlackInCheck[i].BackColor = System.Drawing.Color.Purple;
-                            }
-                            MessageBox.Show("Check");
-
-                            for (int i = 0; i < hasBlackInCheck.Count; i++)
-                            {
-                                hasBlackInCheck[i].BackColor = colourList[i];
-                            }
-                            colourList.Clear();
-                        }
-                        if (hasWhiteInCheck.Count > 0)
-                        {
-                            for (int i = 0; i < hasWhiteInCheck.Count; i++)
-                            {
-                                colourList.Add(hasWhiteInCheck[i].BackColor);
-                                hasWhiteInCheck[i].BackColor = System.Drawing.Color.Purple;
-                            }
-                            MessageBox.Show("Check");
-
-                            for (int i = 0; i < hasWhiteInCheck.Count; i++)
-                            {
-                                hasWhiteInCheck[i].BackColor = colourList[i];
-                            }
-                            colourList.Clear();
-                        }
-
+                        Console.WriteLine("white king positions: " + wKingRow + "," + wKingCol);
+                        Console.WriteLine("black king positions: " + bKingRow + "," + bKingCol);
+     
                         firstSelection.Tag = copyOfFirstSelection.Tag;
                         firstSelection.Image = copyOfFirstSelection.Image;
-
                         secondSelection.Tag = copyOfSecondSelection.Tag;
                         secondSelection.Image = copyOfSecondSelection.Image;
 
@@ -149,25 +120,25 @@ namespace _20201126_Test_of_Button_Concept
                             bKingRow = gridTLP.GetRow(firstSelection);
                         }
                         unHighlightMoves();
-                        playerOneTurn = !playerOneTurn;
-                   
-
-                
-                        //someFunction();
-                        hasBlackInCheck.Clear();
-                        hasWhiteInCheck.Clear();
-
                     }
-
-                    disableControls();
-                    unHighlightMoves();
-
-                    moveCount++;
-                    movesLabel.Text = "Move number: " + moveCount;
-
+                    else
+                    {
+                        playerOneTurn = !playerOneTurn;
+                        movesThatCauseCheck = 0;
+                        possibleMoves = 0;
+                        selectAllPieces();
+                        if (movesThatCauseCheck == possibleMoves)
+                        {
+                            unHighlightMoves();
+                            MessageBox.Show("checkMate");
+                        }
+                        disableControls();
+                        unHighlightMoves();
+                        moveCount++;
+                        movesLabel.Text = "Move number: " + moveCount;
+                    }
                     if (!playerOneTurn)
                     {
-
                         playerTurnButton.Text = "2";
                         playerTurnButton.ForeColor = System.Drawing.Color.Black;
                     }
@@ -175,34 +146,21 @@ namespace _20201126_Test_of_Button_Concept
                     {
                         playerTurnButton.Text = "1";
                         playerTurnButton.ForeColor = System.Drawing.Color.White;
-
                     }
                 }
             }
             Control endRowControl = checkEndRows();
-
-            if (endRowControl != null) { switchtoPromotionMenu(); }
-
-
-        }
-        private void disableControls()
-        {
-            foreach (Control c in gridTLP.Controls)
+            if (endRowControl != null)
             {
-                if (c is PictureBox)
-                {
-                    if ((string)c.Tag == "empty")
-                    {
-                        c.Enabled = true;
-                    }
-                }
+                unHighlightMoves();
+                switchtoPromotionMenu();
             }
         }
+
         public class pieceMoveInformation
         {
             public int startRow;
             public int startCol;
-            public int possibleMoves = 0;
             public string pieceTitle;
             public string pieceType;
             public string pieceColor;
@@ -215,7 +173,50 @@ namespace _20201126_Test_of_Button_Concept
                 pieceColor = _pieceColor;
             }
         };
-        private void focusOnSelection(PictureBox activePicBox)
+        private void selectAllPieces()
+        {
+            List<Control> playersRemainingPieces = new List<Control>();
+
+            foreach (Control c in gridTLP.Controls)
+            {
+                if (c is PictureBox)
+                {
+                    string thisPiece = (string)c.Tag;
+                    if (thisPiece.Substring(0, 1) == "w")
+                    {
+                        if (playerOneTurn)
+                        {
+                            playersRemainingPieces.Add((Control)c);
+                        }
+                    }
+                    else if (thisPiece.Substring(0, 1) == "b")
+                    {
+                        if (!playerOneTurn)
+                        {
+                            playersRemainingPieces.Add((Control)c);
+                        }
+                    }
+
+                }
+            }
+            int piecesFound = 0;
+            possibleMoves = 0;
+            movesThatCauseCheck = 0;
+            for (int i = 0; i < playersRemainingPieces.Count; i++)
+            {
+                extractPictureBoxInformation(playersRemainingPieces[i]);
+                piecesFound++;
+            }
+            if (playerOneTurn)
+            {
+                Console.WriteLine("white can make " + possibleMoves + ". Of these, " + movesThatCauseCheck + " cause check, leaving " + (possibleMoves - movesThatCauseCheck) + " viable moves");
+            }
+            else
+            {
+                Console.WriteLine("black can make " + possibleMoves + ". Of these, " + movesThatCauseCheck + " cause check, leaving " + (possibleMoves - movesThatCauseCheck) + " viable moves");
+            }
+        }
+        private void extractPictureBoxInformation(Control activePicBox)
         {
             int startRow = gridTLP.GetRow(activePicBox);
             int startCol = gridTLP.GetColumn(activePicBox);
@@ -223,44 +224,43 @@ namespace _20201126_Test_of_Button_Concept
             string pieceColor = pieceTitle.Substring(0, 1);
             string pieceType = pieceTitle.Substring(1, pieceTitle.Length - 1);
             pieceMoveInformation currentPiece = new pieceMoveInformation(startCol, startRow, pieceTitle, pieceType, pieceColor);
-            currentPiece.possibleMoves = 0;
-            exploreMoves(currentPiece);
+            findReachableSquares(currentPiece);
         }
-        private void exploreMoves(pieceMoveInformation currentMove)
+        private void findReachableSquares(pieceMoveInformation currentMove)
         {
             switch (currentMove.pieceType)
             {
                 case "Pawn":
                     if (currentMove.pieceColor == "w")
                     {
-                        if (testAndPaint(0, -1, currentMove))
+                        if (canWeKeepMoving(0, -1, currentMove))
                         {
 
                             if (currentMove.startRow == 6)
                             {
-                                testAndPaint(0, -2, currentMove);
+                                canWeKeepMoving(0, -2, currentMove);
                             }
                         }
-                        testAndPaint(-1, -1, currentMove);
-                        testAndPaint(1, -1, currentMove);
+                        canWeKeepMoving(-1, -1, currentMove);
+                        canWeKeepMoving(1, -1, currentMove);
                     }
                     else
                     {
-                        if (testAndPaint(0, 1, currentMove))
+                        if (canWeKeepMoving(0, 1, currentMove))
                         {
                             if (currentMove.startRow == 1)
                             {
-                                testAndPaint(0, 2, currentMove);
+                                canWeKeepMoving(0, 2, currentMove);
                             }
                         }
-                        testAndPaint(-1, 1, currentMove);
-                        testAndPaint(1, 1, currentMove);
+                        canWeKeepMoving(-1, 1, currentMove);
+                        canWeKeepMoving(1, 1, currentMove);
                     }
                     break;
                 case "Knight":
                     for (int i = 0; i < 8; i++)
                     {
-                        testAndPaint(rowVector[i], columnVector[i], currentMove);
+                        canWeKeepMoving(rowVector[i], columnVector[i], currentMove);
                     }
                     break;
                 case "Rook":
@@ -279,25 +279,26 @@ namespace _20201126_Test_of_Button_Concept
                     break;
             }
         }
+
         private void testOrthogonal(pieceMoveInformation currentMove)
         {
             int offset = 1;
-            while (testAndPaint(offset, 0, currentMove))
+            while (canWeKeepMoving(offset, 0, currentMove))
             {
                 offset++;
             }
             offset = -1;
-            while (testAndPaint(offset, 0, currentMove))
+            while (canWeKeepMoving(offset, 0, currentMove))
             {
                 offset--;
             }
             offset = 1;
-            while (testAndPaint(0, offset, currentMove))
+            while (canWeKeepMoving(0, offset, currentMove))
             {
                 offset++;
             }
             offset = -1;
-            while (testAndPaint(0, offset, currentMove))
+            while (canWeKeepMoving(0, offset, currentMove))
             {
                 offset--;
             }
@@ -305,28 +306,27 @@ namespace _20201126_Test_of_Button_Concept
         private void testDiagonal(pieceMoveInformation currentMove)
         {
             int offset = 1;
-            while (testAndPaint(offset, offset, currentMove))
+            while (canWeKeepMoving(offset, offset, currentMove))
             {
                 offset++;
             }
             offset = 1;
-            while (testAndPaint(offset, -offset, currentMove))
+            while (canWeKeepMoving(offset, -offset, currentMove))
             {
                 offset++;
             }
             offset = 1;
-            while (testAndPaint(-offset, offset, currentMove))
+            while (canWeKeepMoving(-offset, offset, currentMove))
             {
                 offset++;
             }
             offset = 1;
-            while (testAndPaint(-offset, -offset, currentMove))
+            while (canWeKeepMoving(-offset, -offset, currentMove))
             {
                 offset++;
             }
         }
-
-        private bool findPiecesThatCauseCheck(int columnVector, int rowVector, pieceMoveInformation currentMove)
+        private bool canWeKeepMoving(int columnVector, int rowVector, pieceMoveInformation currentMove)
         {
             int col = currentMove.startCol + columnVector;
             int row = currentMove.startRow + rowVector;
@@ -337,11 +337,41 @@ namespace _20201126_Test_of_Button_Concept
                 string destinationTag = (string)moveTest.Tag;
                 string firstLetterOfDestinationTag = destinationTag.Substring(0, 1);
 
-
                 if (firstLetterOfDestinationTag == "e")             //empty cell
                 {
                     if (!(currentMove.pieceType == "Pawn" && columnVector != 0))    //edge case where pawn cannot move diagonal into empty space
                     {
+                        possibleMoves++;
+                        moveTest.BackColor = System.Drawing.Color.Pink;
+                        Control startSquare = gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow);
+                        string startSquareTitle = (string)startSquare.Tag;
+                        if (startSquareTitle == "wKing")
+                        {
+                            wKingCol = col;
+                            wKingRow = row;
+                        }
+                        else if (startSquareTitle == "bKing")
+                        {
+                            bKingCol = col;
+                            bKingRow = row;
+                        }
+
+                        string endSquareTitle = (string)moveTest.Tag;
+                        moveTest.Tag = startSquare.Tag;
+                        startSquare.Tag = "empty";
+                        testForCheck();
+                        startSquare.Tag = moveTest.Tag;
+                        moveTest.Tag = endSquareTitle;
+                        if ((string)startSquare.Tag == "wKing")
+                        {
+                            wKingCol = currentMove.startCol;
+                            wKingRow = currentMove.startRow;
+                        }
+                        else if ((string)startSquare.Tag == "bKing")
+                        {
+                            bKingCol = currentMove.startCol;
+                            bKingRow = currentMove.startRow;
+                        }
                         if (currentMove.pieceType == "King")
                         {
                             return false;           //edge case where King can only move one unit
@@ -351,79 +381,227 @@ namespace _20201126_Test_of_Button_Concept
                 }
                 else if (firstLetterOfDestinationTag != currentMove.pieceColor)
                 {
-                    if (!(currentMove.pieceType == "Pawn" && columnVector == 0))    //edge case where pawn cannot move forward to take piece
+                    if ((currentMove.pieceType == "Pawn" && columnVector == 0))    //edge case where pawn cannot move forward to take piece
                     {
-                        string destinationPieceType = destinationTag.Substring(1, destinationTag.Length - 1);
-                        if (destinationPieceType == "King")
-                        {
-                            if (currentMove.pieceColor == "b")
-                            {
-                                if (!playerOneTurn)
-                                {
-                                    hasWhiteInCheck.Add(gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow));
-                                }
-                            }
-                            else
-                            {
-                                if (playerOneTurn)
-                                {
-                                    hasBlackInCheck.Add(gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow));
-                                }
-                            }
-                        }
+
                         return false;                //signals can may be able to move further in this direction if the piece has that ability
                     }
+                    else
+                    {
+                        possibleMoves++;
+                        moveTest.BackColor = System.Drawing.Color.Pink;
+                        Control startSquare = gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow);
+
+                        string startSquareTitle = (string)startSquare.Tag;
+                        if (startSquareTitle == "wKing")
+                        {
+                            wKingCol = col;
+                            wKingRow = row;
+                        }
+                        else if (startSquareTitle == "bKing")
+                        {
+                            bKingCol = col;
+                            bKingRow = row;
+                        }
+                        string endSquareTitle = (string)moveTest.Tag;
+                        moveTest.Tag = startSquare.Tag;
+                        startSquare.Tag = "empty";
+                        testForCheck();
+                        startSquare.Tag = moveTest.Tag;
+                        moveTest.Tag = endSquareTitle;
+                        if ((string)startSquare.Tag == "wKing")
+                        {
+                            wKingCol = currentMove.startCol;
+                            wKingRow = currentMove.startRow;
+                        }
+                        else if ((string)startSquare.Tag == "bKing")
+                        {
+                            bKingCol = currentMove.startCol;
+                            bKingRow = currentMove.startRow;
+                        }
+                    }
                 }
-
-
             }
             return false;
         }
 
+        private void testForCheck()
+        {
+            Control kingToCheck = gridTLP.GetControlFromPosition(wKingCol, wKingRow);
 
-        private bool testAndPaint(int columnVector, int rowVector, pieceMoveInformation currentMove)
-        {           //paints cells we can move to, and returns true if a move if further moves in that direction may be possible
-
-
-            if (checkingIfInCheck)
+            if (!playerOneTurn)
             {
-                return findPiecesThatCauseCheck(columnVector, rowVector, currentMove);
+                kingToCheck = gridTLP.GetControlFromPosition(bKingCol, bKingRow);
+            }
+            int startRow = gridTLP.GetRow(kingToCheck);
+            int startCol = gridTLP.GetColumn(kingToCheck);
+            string pieceTitle = (string)kingToCheck.Tag;
+            string pieceColor = pieceTitle.Substring(0, 1);
+            string pieceType = pieceTitle.Substring(1, pieceTitle.Length - 1);
+            pieceMoveInformation currentPiece = new pieceMoveInformation(startCol, startRow, pieceTitle, pieceType, pieceColor);
+            checkSearch(currentPiece);
+        }
+
+        private void checkSearch(pieceMoveInformation currentMove)
+        {
+            //explore moving Orthogonally
+            int offset = 1;
+            while (!foundCheck && exploreSquares(offset, 0, currentMove, "Ortho"))
+            {
+                offset++;
+            }
+            offset = -1;
+            while (!foundCheck &&  exploreSquares(offset, 0, currentMove, "Ortho"))
+            {
+                offset--;
+            }
+            offset = 1;
+            while (!foundCheck && exploreSquares(0, offset, currentMove, "Ortho"))
+            {
+                offset++;
+            }
+            offset = -1;
+            while (!foundCheck && exploreSquares(0, offset, currentMove, "Ortho"))
+            {
+                offset--;
             }
 
+            //explore moving diagonally
+
+            offset = 1;
+            while (!foundCheck && exploreSquares(offset, offset, currentMove, "Diag")) 
+            {
+                offset++;
+            }
+            offset = 1;
+            while (!foundCheck && exploreSquares(offset, -offset, currentMove, "Diag")) 
+            {
+                offset++;
+            }
+            offset = 1;
+            while (!foundCheck && exploreSquares(-offset, offset, currentMove, "Diag")) 
+            {
+                offset++;
+            }
+            offset = 1;
+            while (!foundCheck && exploreSquares(-offset, -offset, currentMove, "Diag")) 
+            {
+                offset++;
+            }
+            //explore knight moves
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (!foundCheck)
+                {
+                    exploreSquares(rowVector[i], columnVector[i], currentMove, "Knight");
+                }
+                else { i = 8; }
+            }
+
+            //explore pawn moves
+            if (!foundCheck)
+            {
+                if (currentMove.pieceColor == "w")
+                {
+                    exploreSquares(-1, -1, currentMove, "Pawn");
+                    exploreSquares(1, -1, currentMove, "Pawn");
+                }
+                else
+                {
+                    exploreSquares(-1, 1, currentMove, "Pawn");
+                    exploreSquares(1, 1, currentMove, "Pawn");
+                }
+            }
+            foundCheck = false;
+        }
+
+        private bool exploreSquares(int columnVector, int rowVector, pieceMoveInformation currentMove, string attackVulnerableTo)
+        {
 
             int col = currentMove.startCol + columnVector;
             int row = currentMove.startRow + rowVector;
 
             if (col >= 0 && col <= 7 && row >= 0 && row <= 7)
             {
-                Control moveTest = gridTLP.GetControlFromPosition(col, row);
-                string destinationTag = (string)moveTest.Tag;
+                Control destination = gridTLP.GetControlFromPosition(col, row);
+                string destinationTag = (string)destination.Tag;
                 string firstLetterOfDestinationTag = destinationTag.Substring(0, 1);
-
+                string destinationPieceType = destinationTag.Substring(1, destinationTag.Length - 1);
 
                 if (firstLetterOfDestinationTag == "e")             //empty cell
                 {
-                    if (!(currentMove.pieceType == "Pawn" && columnVector != 0))    //edge case where pawn cannot move diagonal into empty space
-                    {
-                        moveTest.BackColor = System.Drawing.Color.Pink;
-                        if (currentMove.pieceType == "King")
-                        {
-                            return false;           //edge case where King can only move one unit
-                        }
-                        return true;                //signals can may be able to move further in this direction if the piece has that ability
-                    }
+                    return true;
                 }
                 else if (firstLetterOfDestinationTag != currentMove.pieceColor)
                 {
-
-                    if (!(currentMove.pieceType == "Pawn" && columnVector == 0))    //edge case where pawn cannot move forward to take piece
+                    //possibleMoves--;
+                    if (attackVulnerableTo == "Ortho")
                     {
-                        moveTest.BackColor = System.Drawing.Color.Pink;
-                        return false;                //signals can may be able to move further in this direction if the piece has that ability
+                        if (destinationPieceType == "Rook" || destinationPieceType == "Queen")
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
+                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
                     }
+                    if (attackVulnerableTo == "Diag")
+                    {
+                        if (destinationPieceType == "Bishop" || destinationPieceType == "Queen")
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
+                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
+                    }
+                    if (attackVulnerableTo == "Knight")
+                    {
+                        if (destinationPieceType == "Knight")
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
+                    }
+                    if (attackVulnerableTo == "Pawn")
+                    {
+                        if (destinationPieceType == "Pawn")
+                        {
+                            movesThatCauseCheck++;
+                            foundCheck = true;
+                            return false;
+                        }
+                    }
+                    return false;
                 }
             }
             return false;
+        }
+
+        private void disableControls()
+        {
+            foreach (Control c in gridTLP.Controls)
+            {
+                if (c is PictureBox)
+                {
+                    if ((string)c.Tag == "empty")
+                    {
+                        c.Enabled = true;
+                    }
+                }
+            }
         }
 
         private void unHighlightMoves()
@@ -552,7 +730,6 @@ namespace _20201126_Test_of_Button_Concept
             {
                 secondSelection.BackColor = System.Drawing.Color.LightYellow;
             }
-
             else
             {
                 secondSelection.BackColor = System.Drawing.Color.SandyBrown;
@@ -563,43 +740,22 @@ namespace _20201126_Test_of_Button_Concept
             gridTLP.Enabled = true;
             playerTurnButton.Visible = true;
             playerTurnLabel.Visible = true;
-            playerOneTurn = !playerOneTurn;
             movesLabel.Visible = true;
             gameTimeLabel.Visible = true;
-
-        }
-
-        private bool checkForCheck()
-        {
-            checkingIfInCheck = true;
-
-            foreach (Control c in gridTLP.Controls)
+            playerOneTurn = !playerOneTurn;
+            movesThatCauseCheck = 0;
+            possibleMoves = 0;
+            selectAllPieces();
+            unHighlightMoves();
+            if (movesThatCauseCheck == possibleMoves)
             {
-                if (c is PictureBox)
-                {
-                    if ((string)c.Tag != "empty")
-                    {
-                        focusOnSelection((PictureBox)c);
-                    }
-                }
+
+                MessageBox.Show("checkMate");
             }
-            checkingIfInCheck = false;
-            if ((playerOneTurn && hasBlackInCheck.Count > 0) || (!playerOneTurn && hasWhiteInCheck.Count > 0))
-            {
-                return true;
-            }
-            return false;
+            movesThatCauseCheck = 0;
+            possibleMoves = 0;
         }
 
-        bool playerCanEscape()
-        {
-                foreach (Control c in gridTLP.Controls)
-                {
-                    focusOnSelection((PictureBox)c);
-                }
-            return false;
-
-        }
         private void timer_Tick(object sender, EventArgs e)
         {
             timeInSeconds++;
@@ -614,4 +770,5 @@ namespace _20201126_Test_of_Button_Concept
             }
         }
     }
+
 }
