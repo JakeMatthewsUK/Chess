@@ -25,10 +25,18 @@ namespace _20201126_Test_of_Button_Concept
         int[] knightRowVector = { -2, -2, -1, -1, 1, 1, 2, 2 };     //iterating through these two arrays in step gives the column and row offsets in the 8 possible knight moves 
         int[] knightColumnVector = { -1, 1, -2, 2, -2, 2, -1, 1 };  //^
 
+        System.Drawing.Color lightSquareColor = System.Drawing.Color.LightYellow;   //the first 2 variables control the background color of the board squares
+        System.Drawing.Color darkSquareColor = System.Drawing.Color.SandyBrown;     //^
+        System.Drawing.Color activePieceColor=System.Drawing.Color.Red;             //color to highlight the active piece
+        System.Drawing.Color checkPieceColor = System.Drawing.Color.Purple;         //color to highlight the pieces causing check (the king and an opponent piece)
+        System.Drawing.Color promotionPieceColor = System.Drawing.Color.Green;      //color to highlight a pawn that has reached the opposite side and can be promoted
+        System.Drawing.Color reachableSquareColor = System.Drawing.Color.Pink;      //color to highlight all of the squares the active piece can reach
+
         PictureBox firstSelection = null;                           //a handle to store the picturebox a player clicked on first (the piece they want to move)
         PictureBox secondSelection = null;                          //a handle to store the picturebox a player clicked on second (the destination square)
         PictureBox copyOfFirstSelection = new PictureBox();         //a blank picturebox that will clone and store the details (background Image & Tag) of the first seleted picturebox
         PictureBox copyOfSecondSelection = new PictureBox();        //^ but for the second selected picturebox
+        PictureBox pieceCausingCheck = null;                        //allows us to highlight a piece that prevents a move being made
 
         private void onClick(object sender, EventArgs e)
         {
@@ -40,7 +48,7 @@ namespace _20201126_Test_of_Button_Concept
                 if (playerOneTurn && pieceTag[0] == 'w' || !playerOneTurn && pieceTag[0] == 'b')    //if they chose one of their own pieces
                 {
                     cloneFirstSelectionPictureBox();                                                //store the attributes of the first picturebox before changing it
-                    firstSelection.BackColor = System.Drawing.Color.Red;                            //highlight the cell                                                               
+                    firstSelection.BackColor = activePieceColor;                            //highlight the cell                                                               
                     scanForAvailableMoves(firstSelection);                                          //go though and find squares the piece can move to (and highlight them)
                     candidateMoves = 0;                                                             //reset this for future use
                     movesThatCauseCheck = 0;                                                        //^
@@ -51,7 +59,7 @@ namespace _20201126_Test_of_Button_Concept
             {
                 secondSelection = sender as PictureBox;                                             //grab the clicked picturebox
                 isFirstClick = true;
-                if (secondSelection.BackColor != System.Drawing.Color.Pink)                         //if player selects any unhighlighted (non reachable) square
+                if (secondSelection.BackColor != reachableSquareColor)                         //if player selects any unhighlighted (non reachable) square
                 {
                     unHighlightMoves();                                                             //remove the highlighting of all cells 
                 }
@@ -74,6 +82,7 @@ namespace _20201126_Test_of_Button_Concept
 
                     if (movesThatCauseCheck == 1)                                       //player put themself in check -> need to undo move
                     {
+                        unHighlightMoves();
                         undoMove();                                                     //revert pictureboxes, restore the king position if it tried to move, unhighlight cells
                     }
                     else                                                                //successful move
@@ -96,7 +105,7 @@ namespace _20201126_Test_of_Button_Concept
             Control endRowControl = checkEndRows();                                     //if a pawn has reached the opposite end of the board this returns that control, otherwise null
             if (endRowControl != null)
             {
-                unHighlightMoves();
+                playerOneTurn = !playerOneTurn;     //temporarily switch back to playerOneTurn to make switchToPromotionMenu() more inutitive. It is switched back in the function
                 switchtoPromotionMenu();   //pops up a menu where the played can choose a piece to promote their pawn into, updates the pieces and tests if the promotion causes checkmate
             }
             
@@ -112,6 +121,7 @@ namespace _20201126_Test_of_Button_Concept
         {
             copyOfSecondSelection.Tag = secondSelection.Tag;               //store the attributes of the second picturebox before changing it
             copyOfSecondSelection.Image = secondSelection.Image;
+            copyOfSecondSelection.BackColor = secondSelection.BackColor;
         }
         public void updatePictureBoxesAfterMove()
         {
@@ -123,6 +133,19 @@ namespace _20201126_Test_of_Button_Concept
         }
         public void undoMove()
         {
+            secondSelection.BackColor = activePieceColor;                                                       //highlight the current piece
+            pieceCausingCheck.BackColor= checkPieceColor;                                                   //highlight the piece causing check
+            if (playerOneTurn)
+            {
+                gridTLP.GetControlFromPosition(whiteKingCol, whiteKingRow).BackColor= checkPieceColor;      //highlight the king that is in check
+            }
+            else
+            {
+                gridTLP.GetControlFromPosition(blackKingCol, blackKingRow).BackColor = checkPieceColor;
+            }
+
+            MessageBox.Show("Invalid Move: Your king is in check");
+
             firstSelection.Tag = copyOfFirstSelection.Tag;                  //return the selected pictureboxes back to their original status
             firstSelection.Image = copyOfFirstSelection.Image;
             secondSelection.Tag = copyOfSecondSelection.Tag;
@@ -138,7 +161,7 @@ namespace _20201126_Test_of_Button_Concept
                 blackKingCol = gridTLP.GetColumn(firstSelection);
                 blackKingRow = gridTLP.GetRow(firstSelection);
             }
-            unHighlightMoves();                                             //leaving the cells highlighted allows any piece to move there - need to prevent this
+            unHighlightMoves();                                             //restore colours back to normal
         }
         private void updateDisplay()
         {   //called after each turn
@@ -159,7 +182,8 @@ namespace _20201126_Test_of_Button_Concept
 
         }
         public class pictureBoxInformation
-        {
+        {       //this class is not functionally neccesary, but provides easier access to the properties of the PictureBox it derives from
+                //that way we can call on mypictureBoxInformation.pieceTitle rather than 
             public int startRow;
             public int startCol;
             public string pieceTitle;
@@ -217,7 +241,7 @@ namespace _20201126_Test_of_Button_Concept
         }
         private void scanForAvailableMoves(Control activePicBox)
         {
-            //this funtion is called for 2 reasons:
+            //this function is called for 2 reasons:
             // 1) to highlight the available moves for a piece a played has selected
             // 2) to count the number of moves a piece can make, and the number that cause check 
 
@@ -344,7 +368,7 @@ namespace _20201126_Test_of_Button_Concept
                     if (!(currentMove.pieceType == "Pawn" && columnVector != 0))        //check we are not in the edge case where pawn cannot move diagonal into empty space
                     {
                         candidateMoves++;                                               //note that the move is viable (used when function if called to see if a player is in check)
-                        destination.BackColor = System.Drawing.Color.Pink;              //highlight the cell (used when a player has chosen a piece to move)
+                        destination.BackColor = reachableSquareColor;              //highlight the cell (used when a player has chosen a piece to move)
 
                         Control startSquare = gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow);       //get a handle on the start square Control
 
@@ -394,7 +418,7 @@ namespace _20201126_Test_of_Button_Concept
                     if (!(currentMove.pieceType == "Pawn" && columnVector == 0))    //exclude edge case where pawn cannot move forward to take a piece
                     {
                         candidateMoves++;                                           //note that the move is possible (though it may cause check)
-                        destination.BackColor = System.Drawing.Color.Pink;          //highlight it as a possible move
+                        destination.BackColor = reachableSquareColor;          //highlight it as a possible move
 
                         Control startSquare = gridTLP.GetControlFromPosition(currentMove.startCol, currentMove.startRow);   //get a handle on the start square Control
                         string startSquareTitle = (string)startSquare.Tag;
@@ -433,6 +457,9 @@ namespace _20201126_Test_of_Button_Concept
         {   //this function is analogous to scanForAvailableMoves() - it tests if a move causes check and increments the movesThatCauseCheck int
             //it does this my starting at the king and testing if it could reach any opponent pieces by using a move that the opponent piece could make
             //it delegates to subfunctions that do this, in a similar way to scanForAvailableMoves()
+
+            pieceCausingCheck = null;           //initialise to null. This will return a piece causing check, if there is one. This is used to highlight that piece when a player
+                                                //...has attempted a move that causes check
             Control kingToCheck = gridTLP.GetControlFromPosition(whiteKingCol, whiteKingRow);
 
             if (!playerOneTurn)
@@ -453,7 +480,7 @@ namespace _20201126_Test_of_Button_Concept
             //explore moving Orthogonally
             int offset = 1;             
             while (!foundCheck && exploreSquares(offset, 0, currentMove, "Ortho"))  //ortho denotes an orthogonal move
-            {                       //the foundcheck bool is set to true when check is found - this prevents movesThatCause check from being incremented more than once on the same square
+            {                       //the foundcheck bool is set to true when check is found - this prevents movesThatCauseCheck from being incremented more than once on the same square
                 offset++;           //...such as when the king would be put in check my more than one opponent piece
             }
             offset = -1;
@@ -525,67 +552,72 @@ namespace _20201126_Test_of_Button_Concept
         private bool exploreSquares(int columnVector, int rowVector, pictureBoxInformation currentMove, string attackVulnerableTo)
         {
 
-            int col = currentMove.startCol + columnVector;
-            int row = currentMove.startRow + rowVector;
+            int col = currentMove.startCol + columnVector;          //the column containing the PictureBox we are testing
+            int row = currentMove.startRow + rowVector;             //the row containing the PictureBox we are testing
 
-            if (col >= 0 && col <= 7 && row >= 0 && row <= 7)                   //if we are still on the board
+            if (col >= 0 && col <= 7 && row >= 0 && row <= 7)                                           //if we are still on the board
             {
-                Control destination = gridTLP.GetControlFromPosition(col, row);
+                Control destination = gridTLP.GetControlFromPosition(col, row);                         //get a handle on the cell that may be able to reach the king
                 string destinationTag = (string)destination.Tag;
                 string firstLetterOfDestinationTag = destinationTag.Substring(0, 1);
-                string destinationPieceType = destinationTag.Substring(1, destinationTag.Length - 1);
+                string destinationPieceType = destinationTag.Substring(1, destinationTag.Length - 1);   //e.g. 'Pawn', 'Rook', etc.
 
-                if (firstLetterOfDestinationTag == "e")             //empty cell
+                if (firstLetterOfDestinationTag == "e")             //case empty cell
                 {
-                    return true;
+                    return true;                                    //square cannot attack king (nothing there!) but perhaps the next one can
                 }
-                else if (firstLetterOfDestinationTag != currentMove.pieceColor)
+                else if (firstLetterOfDestinationTag != currentMove.pieceColor)         //found an opponent piece
                 {
-                    //possibleMoves--;
-                    if (attackVulnerableTo == "Ortho")
+                    if (attackVulnerableTo == "Ortho")              //function was called with argument 'Ortho' - vertical only or horizontal only movement from this square puts king in check
                     {
-                        if (destinationPieceType == "Rook" || destinationPieceType == "Queen")
+                        if (destinationPieceType == "Rook" || destinationPieceType == "Queen")          //pieces that can move more than 1 square in that direction
                         {
-                            movesThatCauseCheck++;
-                            foundCheck = true;
-                            return false;
+                            movesThatCauseCheck++;                              
+                            pieceCausingCheck = (PictureBox)destination;    //get a handle on this so we can choose to highlight the piece causing check
+                            foundCheck = true;           //important to change this to true - otherwise the calling function could count the king as being in check more than once for this move
+                            return false;                //..for example when the king is in check by both a Rook and a Queen
                         }
-                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)
+                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)    //king can only move one square in that direction
                         {
                             movesThatCauseCheck++;
+                            pieceCausingCheck = (PictureBox)destination;
                             foundCheck = true;
                             return false;
                         }
                     }
-                    if (attackVulnerableTo == "Diag")
+                    if (attackVulnerableTo == "Diag")       
                     {
-                        if (destinationPieceType == "Bishop" || destinationPieceType == "Queen")
+                        if (destinationPieceType == "Bishop" || destinationPieceType == "Queen")    //pieces that can move more than 1 square in that direction
                         {
                             movesThatCauseCheck++;
+                            pieceCausingCheck = (PictureBox)destination;
                             foundCheck = true;
                             return false;
                         }
-                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)
+                        else if (destinationPieceType == "King" && columnVector <= 1 && columnVector >= -1 && rowVector <= 1 && rowVector >= -1)    //king can only move one square in that direction
                         {
                             movesThatCauseCheck++;
+                            pieceCausingCheck = (PictureBox)destination;
                             foundCheck = true;
                             return false;
                         }
                     }
-                    if (attackVulnerableTo == "Knight")
+                    if (attackVulnerableTo == "Knight")                 //function was called with argument 'Knight' - we are looking at a square in which a knight could attack the selected king
                     {
                         if (destinationPieceType == "Knight")
                         {
                             movesThatCauseCheck++;
+                            pieceCausingCheck = (PictureBox)destination;
                             foundCheck = true;
                             return false;
                         }
                     }
-                    if (attackVulnerableTo == "Pawn")
+                    if (attackVulnerableTo == "Pawn")                   //diagonal moves where direction depends on the colour of the attacking pawn
                     {
                         if (destinationPieceType == "Pawn")
                         {
                             movesThatCauseCheck++;
+                            pieceCausingCheck = (PictureBox)destination;
                             foundCheck = true;
                             return false;
                         }
@@ -597,162 +629,116 @@ namespace _20201126_Test_of_Button_Concept
         }
 
         private void unHighlightMoves()
-        {
+        {                   //simply unpaint and square that has beeen painted a background color different to that it started with
             foreach (Control c in gridTLP.Controls)
             {
                 if (c is PictureBox)
                 {
-                    if (c.BackColor == System.Drawing.Color.Pink || c.BackColor == System.Drawing.Color.Red)
+                    if (c.BackColor != lightSquareColor && c.BackColor != darkSquareColor)      //if the square is highlighted a color other than the base color
                     {
-                        if ((gridTLP.GetRow(c) % 2 == 0 && gridTLP.GetColumn(c) % 2 == 0) || (gridTLP.GetRow(c) % 2 == 1 && gridTLP.GetColumn(c) % 2 == 1))
+                        if ((gridTLP.GetRow(c) % 2 == 0 && gridTLP.GetColumn(c) % 2 == 0) || (gridTLP.GetRow(c) % 2 == 1 && gridTLP.GetColumn(c) % 2 == 1))   //reset it to restore checkered color effect
                         {
-                            c.BackColor = System.Drawing.Color.LightYellow;
+                            c.BackColor = lightSquareColor;
                         }
                         else
                         {
-                            c.BackColor = System.Drawing.Color.SandyBrown;
+                            c.BackColor = darkSquareColor;
                         }
                     }
                 }
             }
         }
         private Control checkEndRows()
-        {
+        {               //if a pawn is found in an endrow, return that pawn for promotion, otherwise return null
+            for (int col = 0; col < 8; col++)
+            {
+                for (int row = 0; row < 8; row += 7)
+                {
+                    Control endSquareToCheck = gridTLP.GetControlFromPosition(col, row);
 
-            int startCol = 0;
-            bool exit = false;
-            Control moveTest;
-            while (startCol < 8 && !exit)
-            {
-                moveTest = gridTLP.GetControlFromPosition(startCol, 0);
-                if ((string)moveTest.Tag == "wPawn")
-                {
-                    moveTest.BackColor = System.Drawing.Color.Green;
-                    playerOneTurn = !playerOneTurn;
-                    return moveTest;
+                    if ((string)endSquareToCheck.Tag == "wPawn" || (string)endSquareToCheck.Tag == "bPawn")
+                    {
+                        endSquareToCheck.BackColor = promotionPieceColor;    //highlight the pawn
+                        return endSquareToCheck;
+                    }
                 }
-                startCol++;
-            }
-            startCol = 0;
-            exit = false;
-            while (startCol < 8 && !exit)
-            {
-                moveTest = gridTLP.GetControlFromPosition(startCol, 7);
-                if ((string)moveTest.Tag == "bPawn")
-                {
-                    moveTest.BackColor = System.Drawing.Color.Green;
-                    playerOneTurn = !playerOneTurn;
-                    return moveTest;
-                }
-                startCol++;
             }
             return null;
         }
         private void switchtoPromotionMenu()
         {
 
-            if (!playerOneTurn)
-            {
-                foreach (PictureBox c in tlp2.Controls)
+            foreach (PictureBox c in promotionTLP.Controls)     //promotionTLP contains 4 PictureBox Controls: a knight, Rook, Bishop and a Queen
+            {                                                   //...this loop makes sure the images and tags on those PictureBoxes match the current player
+                string controlTag = (string)c.Tag;              //...to ensure their pawn is promoted to a piece of their own color 
+
+                if (playerOneTurn)
                 {
-                    if ((string)c.Tag == "wQueen")
+                    if (controlTag[0] == 'w')
                     {
-                        c.Image = Properties.Resources.bQueen;
-                        c.Tag = "bQueen";
+                        c.Image = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject((string)c.Tag);
                     }
-                    else if ((string)c.Tag == "wRook")
+                    else
                     {
-                        c.Image = Properties.Resources.bRook;
-                        c.Tag = "bRook";
-                    }
-                    else if ((string)c.Tag == "wBishop")
-                    {
-                        c.Image = Properties.Resources.bBishop;
-                        c.Tag = "bBishop";
-                    }
-                    else if ((string)c.Tag == "wKnight")
-                    {
-                        c.Image = Properties.Resources.bKnight;
-                        c.Tag = "bKnight";
+                        c.Tag = 'w' + controlTag.Substring(1);
+                        c.Image = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject((string)c.Tag);
                     }
                 }
-            }
-            else
-            {
-                foreach (PictureBox c in tlp2.Controls)
+                else
                 {
-                    if ((string)c.Tag == "bQueen")
+                    if (controlTag[0] == 'b')
                     {
-                        c.Image = Properties.Resources.wQueen;
-                        c.Tag = "wQueen";
+                        c.Image = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject((string)c.Tag);
                     }
-                    else if ((string)c.Tag == "bRook")
+                    else
                     {
-                        c.Image = Properties.Resources.wRook;
-                        c.Tag = "wRook";
+                        c.Tag = 'b' + controlTag.Substring(1);
+                        c.Image = (System.Drawing.Bitmap)Properties.Resources.ResourceManager.GetObject((string)c.Tag);
                     }
-                    else if ((string)c.Tag == "bBishop")
-                    {
-                        c.Image = Properties.Resources.wBishop;
-                        c.Tag = "wBishop";
-                    }
-                    else if ((string)c.Tag == "bKnight")
-                    {
-                        c.Image = Properties.Resources.wKnight;
-                        c.Tag = "wKnight";
-                    }
+
                 }
             }
-            tlp2.Visible = true;
-            tlp2.Enabled = true;
-            piecePromotionLabel.Visible = true;
-            gridTLP.Enabled = false;
-            playerTurnButton.Visible = false;
-            playerTurnLabel.Visible = false;
-            movesLabel.Visible = false;
-            gameTimeLabel.Visible = false;
+
+            promotionTLP.Visible = true;                //display the promotion TLP PictureBoxes
+            promotionTLP.Enabled = true;                //make them clickable
+            piecePromotionLabel.Visible = true;         //display the text asking the player to choose a new piece
+            gridTLP.Enabled = false;                    //disable the normal grid
+            playerTurnButton.Visible = false;           //make the other display items that are in the way of the pomotion information invisible
+            playerTurnLabel.Visible = false;            //^
+            movesLabel.Visible = false;                 //^
+            gameTimeLabel.Visible = false;              //^
 
         }
         private void onPromotionClick(object sender, EventArgs e)
-        {
+        {           //player has selected a piece they want to turn their pawn into
             PictureBox selection = sender as PictureBox;
-            secondSelection.Tag = selection.Tag;
-            secondSelection.Image = selection.Image;
-            if ((gridTLP.GetRow(secondSelection) % 2 == 0 && gridTLP.GetColumn(secondSelection) % 2 == 0) || (gridTLP.GetRow(secondSelection) % 2 == 1 && gridTLP.GetColumn(secondSelection) % 2 == 1))
-            {
-                secondSelection.BackColor = System.Drawing.Color.LightYellow;
-            }
-            else
-            {
-                secondSelection.BackColor = System.Drawing.Color.SandyBrown;
-            }
-            tlp2.Visible = false;
-            tlp2.Enabled = false;
-            piecePromotionLabel.Visible = false;
-            gridTLP.Enabled = true;
-            playerTurnButton.Visible = true;
-            playerTurnLabel.Visible = true;
-            movesLabel.Visible = true;
-            gameTimeLabel.Visible = true;
+            secondSelection.Tag = selection.Tag;        //secondSelection is a handle on the pawn they moved to the end - copy the details of the selected piece onto it
+            secondSelection.Image = selection.Image;    //^
 
-            playerOneTurn = !playerOneTurn;
-            movesThatCauseCheck = 0;
-            candidateMoves = 0;
-            selectAllPieces();
+            promotionTLP.Visible = false;               //hide and disable the promotionTLP and label
+            promotionTLP.Enabled = false;               
+            piecePromotionLabel.Visible = false;
+
+            gridTLP.Enabled = true;                     //re-enable and display the normal grid and labels
+            playerTurnButton.Visible = true;            //^
+            playerTurnLabel.Visible = true;             //^
+            movesLabel.Visible = true;                  //^
+            gameTimeLabel.Visible = true;               //^
+            playerOneTurn = !playerOneTurn;             //switch player back, ready for the next move
+            movesThatCauseCheck = 0;                    //reset this for this to zero for the upcoming selectAllPieces()
+            candidateMoves = 0;                         //^
+            selectAllPieces();                          //now need to test how many moves are possible for the opponent, and how many would cause check
             unHighlightMoves();
             if (movesThatCauseCheck == candidateMoves)
             {
 
                 MessageBox.Show("checkMate");
             }
-            movesThatCauseCheck = 0;
-            candidateMoves = 0;
         }
 
         private void timer_Tick(object sender, EventArgs e)
-        {
+        {               //a simple timer to display the elapsed game time
             timeInSeconds++;
-
             if (timeInSeconds < 60)
             {
                 gameTimeLabel.Text = "Game time: " + timeInSeconds + "s";

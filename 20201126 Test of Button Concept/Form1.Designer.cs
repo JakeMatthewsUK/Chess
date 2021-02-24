@@ -94,16 +94,16 @@
             this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.tlp2 = new System.Windows.Forms.TableLayoutPanel();
+            this.promotionTLP = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.promotionTLP = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.piecePromotionLabel = new System.Windows.Forms.Label();
-            this.movesLabel = new System.Windows.Forms.Label();
             this.playerTurnLabel = new System.Windows.Forms.Label();
             this.playerTurnButton = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.movesLabel = new System.Windows.Forms.Label();
             this.gameTimeLabel = new System.Windows.Forms.Label();
             this.gridTLP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox95)).BeginInit();
@@ -170,10 +170,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            this.tlp2.SuspendLayout();
+            this.promotionTLP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.promotionTLP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1130,29 +1130,29 @@
             this.pictureBox8.Tag = "bRook";
             this.pictureBox8.Click += new System.EventHandler(this.onClick);
             // 
-            // tlp2
+            // promotionTLP
             // 
-            this.tlp2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tlp2.BackColor = System.Drawing.Color.Transparent;
-            this.tlp2.ColumnCount = 4;
-            this.tlp2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlp2.Controls.Add(this.pictureBox4, 0, 0);
-            this.tlp2.Controls.Add(this.pictureBox3, 0, 0);
-            this.tlp2.Controls.Add(this.promotionTLP, 0, 0);
-            this.tlp2.Controls.Add(this.pictureBox1, 0, 0);
-            this.tlp2.Enabled = false;
-            this.tlp2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tlp2.Location = new System.Drawing.Point(483, 795);
-            this.tlp2.Name = "tlp2";
-            this.tlp2.RowCount = 1;
-            this.tlp2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 124F));
-            this.tlp2.Size = new System.Drawing.Size(493, 124);
-            this.tlp2.TabIndex = 8;
-            this.tlp2.Visible = false;
+            this.promotionTLP.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.promotionTLP.BackColor = System.Drawing.Color.Transparent;
+            this.promotionTLP.ColumnCount = 4;
+            this.promotionTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.promotionTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.promotionTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.promotionTLP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.promotionTLP.Controls.Add(this.pictureBox4, 0, 0);
+            this.promotionTLP.Controls.Add(this.pictureBox3, 0, 0);
+            this.promotionTLP.Controls.Add(this.pictureBox2, 0, 0);
+            this.promotionTLP.Controls.Add(this.pictureBox1, 0, 0);
+            this.promotionTLP.Enabled = false;
+            this.promotionTLP.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.promotionTLP.Location = new System.Drawing.Point(483, 795);
+            this.promotionTLP.Name = "promotionTLP";
+            this.promotionTLP.RowCount = 1;
+            this.promotionTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.promotionTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 124F));
+            this.promotionTLP.Size = new System.Drawing.Size(493, 124);
+            this.promotionTLP.TabIndex = 8;
+            this.promotionTLP.Visible = false;
             // 
             // pictureBox4
             // 
@@ -1182,19 +1182,19 @@
             this.pictureBox3.Tag = "wBishop";
             this.pictureBox3.Click += new System.EventHandler(this.onPromotionClick);
             // 
-            // promotionTLP
+            // pictureBox2
             // 
-            this.promotionTLP.BackColor = System.Drawing.Color.LightYellow;
-            this.promotionTLP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.promotionTLP.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKnight;
-            this.promotionTLP.Location = new System.Drawing.Point(3, 3);
-            this.promotionTLP.Name = "promotionTLP";
-            this.promotionTLP.Size = new System.Drawing.Size(117, 118);
-            this.promotionTLP.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.promotionTLP.TabIndex = 58;
-            this.promotionTLP.TabStop = false;
-            this.promotionTLP.Tag = "wKnight";
-            this.promotionTLP.Click += new System.EventHandler(this.onPromotionClick);
+            this.pictureBox2.BackColor = System.Drawing.Color.LightYellow;
+            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox2.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKnight;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(117, 118);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 58;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Tag = "wKnight";
+            this.pictureBox2.Click += new System.EventHandler(this.onPromotionClick);
             // 
             // pictureBox1
             // 
@@ -1220,16 +1220,6 @@
             this.piecePromotionLabel.TabIndex = 9;
             this.piecePromotionLabel.Text = "Player 1 - choose your new piece:";
             this.piecePromotionLabel.Visible = false;
-            // 
-            // movesLabel
-            // 
-            this.movesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.movesLabel.ForeColor = System.Drawing.Color.SeaGreen;
-            this.movesLabel.Location = new System.Drawing.Point(507, 865);
-            this.movesLabel.Name = "movesLabel";
-            this.movesLabel.Size = new System.Drawing.Size(488, 62);
-            this.movesLabel.TabIndex = 10;
-            this.movesLabel.Text = "Move number: 0";
             // 
             // playerTurnLabel
             // 
@@ -1259,6 +1249,16 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // movesLabel
+            // 
+            this.movesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.movesLabel.ForeColor = System.Drawing.Color.SeaGreen;
+            this.movesLabel.Location = new System.Drawing.Point(507, 865);
+            this.movesLabel.Name = "movesLabel";
+            this.movesLabel.Size = new System.Drawing.Size(488, 62);
+            this.movesLabel.TabIndex = 10;
+            this.movesLabel.Text = "Move number: 0";
+            // 
             // gameTimeLabel
             // 
             this.gameTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1278,7 +1278,7 @@
             this.Controls.Add(this.playerTurnButton);
             this.Controls.Add(this.playerTurnLabel);
             this.Controls.Add(this.movesLabel);
-            this.Controls.Add(this.tlp2);
+            this.Controls.Add(this.promotionTLP);
             this.Controls.Add(this.gridTLP);
             this.Controls.Add(this.piecePromotionLabel);
             this.Name = "Form1";
@@ -1348,10 +1348,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            this.tlp2.ResumeLayout(false);
+            this.promotionTLP.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.promotionTLP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -1424,16 +1424,16 @@
         private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.TableLayoutPanel tlp2;
+        private System.Windows.Forms.TableLayoutPanel promotionTLP;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox promotionTLP;
+        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label piecePromotionLabel;
-        private System.Windows.Forms.Label movesLabel;
         private System.Windows.Forms.Label playerTurnLabel;
         private System.Windows.Forms.Button playerTurnButton;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label movesLabel;
         private System.Windows.Forms.Label gameTimeLabel;
     }
 }
