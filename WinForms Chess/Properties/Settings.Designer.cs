@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _20201126_Test_of_Button_Concept.Properties
+namespace WinFormsChess.Properties
 {
 
 

@@ -1,0 +1,10 @@
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\bin\Debug\20201126 Test of Button Concept.exe.config
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\bin\Debug\20201126 Test of Button Concept.exe
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\bin\Debug\20201126 Test of Button Concept.pdb
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\WinformsChess.csprojAssemblyReference.cache
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\WinFormsChess.Form1.resources
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\_20201126_Test_of_Button_Concept.Properties.Resources.resources
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\WinformsChess.csproj.GenerateResource.cache
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\WinformsChess.csproj.CoreCompileInputs.cache
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\20201126 Test of Button Concept.exe
+C:\Users\User\Software\C#\Games\Chess\WinForms Chess\obj\Debug\20201126 Test of Button Concept.pdb

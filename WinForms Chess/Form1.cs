@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 
 
-namespace _20201126_Test_of_Button_Concept
+namespace WinFormsChess
 {
     public partial class Form1 : Form
     {

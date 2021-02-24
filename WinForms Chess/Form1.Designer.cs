@@ -1,4 +1,4 @@
-﻿namespace _20201126_Test_of_Button_Concept
+﻿namespace WinFormsChess
 {
     partial class Form1
     {
@@ -275,7 +275,7 @@
             // 
             this.pictureBox95.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox95.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox95.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wRook;
+            this.pictureBox95.Image = global::WinFormsChess.Properties.Resources.wRook;
             this.pictureBox95.Location = new System.Drawing.Point(829, 668);
             this.pictureBox95.Name = "pictureBox95";
             this.pictureBox95.Size = new System.Drawing.Size(115, 92);
@@ -289,7 +289,7 @@
             // 
             this.pictureBox94.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox94.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox94.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKnight;
+            this.pictureBox94.Image = global::WinFormsChess.Properties.Resources.wKnight;
             this.pictureBox94.Location = new System.Drawing.Point(711, 668);
             this.pictureBox94.Name = "pictureBox94";
             this.pictureBox94.Size = new System.Drawing.Size(112, 92);
@@ -303,7 +303,7 @@
             // 
             this.pictureBox93.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox93.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox93.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wBishop;
+            this.pictureBox93.Image = global::WinFormsChess.Properties.Resources.wBishop;
             this.pictureBox93.Location = new System.Drawing.Point(593, 668);
             this.pictureBox93.Name = "pictureBox93";
             this.pictureBox93.Size = new System.Drawing.Size(112, 92);
@@ -317,7 +317,7 @@
             // 
             this.pictureBox92.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox92.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox92.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wQueen;
+            this.pictureBox92.Image = global::WinFormsChess.Properties.Resources.wQueen;
             this.pictureBox92.Location = new System.Drawing.Point(475, 668);
             this.pictureBox92.Name = "pictureBox92";
             this.pictureBox92.Size = new System.Drawing.Size(112, 92);
@@ -331,7 +331,7 @@
             // 
             this.pictureBox91.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox91.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox91.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKing;
+            this.pictureBox91.Image = global::WinFormsChess.Properties.Resources.wKing;
             this.pictureBox91.Location = new System.Drawing.Point(357, 668);
             this.pictureBox91.Name = "pictureBox91";
             this.pictureBox91.Size = new System.Drawing.Size(112, 92);
@@ -345,7 +345,7 @@
             // 
             this.pictureBox90.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox90.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox90.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wBishop;
+            this.pictureBox90.Image = global::WinFormsChess.Properties.Resources.wBishop;
             this.pictureBox90.Location = new System.Drawing.Point(239, 668);
             this.pictureBox90.Name = "pictureBox90";
             this.pictureBox90.Size = new System.Drawing.Size(112, 92);
@@ -359,7 +359,7 @@
             // 
             this.pictureBox89.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox89.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox89.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKnight;
+            this.pictureBox89.Image = global::WinFormsChess.Properties.Resources.wKnight;
             this.pictureBox89.Location = new System.Drawing.Point(121, 668);
             this.pictureBox89.Name = "pictureBox89";
             this.pictureBox89.Size = new System.Drawing.Size(112, 92);
@@ -373,7 +373,7 @@
             // 
             this.pictureBox88.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox88.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox88.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wRook;
+            this.pictureBox88.Image = global::WinFormsChess.Properties.Resources.wRook;
             this.pictureBox88.Location = new System.Drawing.Point(3, 668);
             this.pictureBox88.Name = "pictureBox88";
             this.pictureBox88.Size = new System.Drawing.Size(112, 92);
@@ -387,7 +387,7 @@
             // 
             this.pictureBox87.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox87.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox87.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox87.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox87.Location = new System.Drawing.Point(829, 573);
             this.pictureBox87.Name = "pictureBox87";
             this.pictureBox87.Size = new System.Drawing.Size(115, 89);
@@ -401,7 +401,7 @@
             // 
             this.pictureBox86.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox86.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox86.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox86.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox86.Location = new System.Drawing.Point(711, 573);
             this.pictureBox86.Name = "pictureBox86";
             this.pictureBox86.Size = new System.Drawing.Size(112, 89);
@@ -415,7 +415,7 @@
             // 
             this.pictureBox85.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox85.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox85.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox85.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox85.Location = new System.Drawing.Point(593, 573);
             this.pictureBox85.Name = "pictureBox85";
             this.pictureBox85.Size = new System.Drawing.Size(112, 89);
@@ -429,7 +429,7 @@
             // 
             this.pictureBox84.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox84.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox84.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox84.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox84.Location = new System.Drawing.Point(475, 573);
             this.pictureBox84.Name = "pictureBox84";
             this.pictureBox84.Size = new System.Drawing.Size(112, 89);
@@ -443,7 +443,7 @@
             // 
             this.pictureBox83.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox83.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox83.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox83.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox83.Location = new System.Drawing.Point(357, 573);
             this.pictureBox83.Name = "pictureBox83";
             this.pictureBox83.Size = new System.Drawing.Size(112, 89);
@@ -457,7 +457,7 @@
             // 
             this.pictureBox82.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox82.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox82.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox82.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox82.Location = new System.Drawing.Point(239, 573);
             this.pictureBox82.Name = "pictureBox82";
             this.pictureBox82.Size = new System.Drawing.Size(112, 89);
@@ -471,7 +471,7 @@
             // 
             this.pictureBox81.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox81.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox81.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox81.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox81.Location = new System.Drawing.Point(121, 573);
             this.pictureBox81.Name = "pictureBox81";
             this.pictureBox81.Size = new System.Drawing.Size(112, 89);
@@ -485,7 +485,7 @@
             // 
             this.pictureBox80.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox80.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox80.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wPawn;
+            this.pictureBox80.Image = global::WinFormsChess.Properties.Resources.wPawn;
             this.pictureBox80.Location = new System.Drawing.Point(3, 573);
             this.pictureBox80.Name = "pictureBox80";
             this.pictureBox80.Size = new System.Drawing.Size(112, 89);
@@ -915,7 +915,7 @@
             // 
             this.pictureBox47.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox47.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox47.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox47.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox47.Location = new System.Drawing.Point(829, 98);
             this.pictureBox47.Name = "pictureBox47";
             this.pictureBox47.Size = new System.Drawing.Size(115, 89);
@@ -929,7 +929,7 @@
             // 
             this.pictureBox46.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox46.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox46.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox46.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox46.Location = new System.Drawing.Point(711, 98);
             this.pictureBox46.Name = "pictureBox46";
             this.pictureBox46.Size = new System.Drawing.Size(112, 89);
@@ -943,7 +943,7 @@
             // 
             this.pictureBox45.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox45.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox45.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox45.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox45.Location = new System.Drawing.Point(593, 98);
             this.pictureBox45.Name = "pictureBox45";
             this.pictureBox45.Size = new System.Drawing.Size(112, 89);
@@ -957,7 +957,7 @@
             // 
             this.pictureBox44.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox44.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox44.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox44.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox44.Location = new System.Drawing.Point(475, 98);
             this.pictureBox44.Name = "pictureBox44";
             this.pictureBox44.Size = new System.Drawing.Size(112, 89);
@@ -971,7 +971,7 @@
             // 
             this.pictureBox43.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox43.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox43.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox43.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox43.Location = new System.Drawing.Point(357, 98);
             this.pictureBox43.Name = "pictureBox43";
             this.pictureBox43.Size = new System.Drawing.Size(112, 89);
@@ -985,7 +985,7 @@
             // 
             this.pictureBox42.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox42.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox42.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox42.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox42.Location = new System.Drawing.Point(239, 98);
             this.pictureBox42.Name = "pictureBox42";
             this.pictureBox42.Size = new System.Drawing.Size(112, 89);
@@ -999,7 +999,7 @@
             // 
             this.pictureBox41.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox41.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox41.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox41.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox41.Location = new System.Drawing.Point(121, 98);
             this.pictureBox41.Name = "pictureBox41";
             this.pictureBox41.Size = new System.Drawing.Size(112, 89);
@@ -1013,7 +1013,7 @@
             // 
             this.pictureBox40.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox40.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox40.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bPawn;
+            this.pictureBox40.Image = global::WinFormsChess.Properties.Resources.bPawn;
             this.pictureBox40.Location = new System.Drawing.Point(3, 98);
             this.pictureBox40.Name = "pictureBox40";
             this.pictureBox40.Size = new System.Drawing.Size(112, 89);
@@ -1027,7 +1027,7 @@
             // 
             this.pictureBox15.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox15.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bRook;
+            this.pictureBox15.Image = global::WinFormsChess.Properties.Resources.bRook;
             this.pictureBox15.Location = new System.Drawing.Point(829, 3);
             this.pictureBox15.Name = "pictureBox15";
             this.pictureBox15.Size = new System.Drawing.Size(115, 89);
@@ -1041,7 +1041,7 @@
             // 
             this.pictureBox14.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox14.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bKnight;
+            this.pictureBox14.Image = global::WinFormsChess.Properties.Resources.bKnight;
             this.pictureBox14.Location = new System.Drawing.Point(711, 3);
             this.pictureBox14.Name = "pictureBox14";
             this.pictureBox14.Size = new System.Drawing.Size(112, 89);
@@ -1055,7 +1055,7 @@
             // 
             this.pictureBox13.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox13.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bBishop;
+            this.pictureBox13.Image = global::WinFormsChess.Properties.Resources.bBishop;
             this.pictureBox13.Location = new System.Drawing.Point(593, 3);
             this.pictureBox13.Name = "pictureBox13";
             this.pictureBox13.Size = new System.Drawing.Size(112, 89);
@@ -1069,7 +1069,7 @@
             // 
             this.pictureBox12.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox12.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bQueen;
+            this.pictureBox12.Image = global::WinFormsChess.Properties.Resources.bQueen;
             this.pictureBox12.Location = new System.Drawing.Point(475, 3);
             this.pictureBox12.Name = "pictureBox12";
             this.pictureBox12.Size = new System.Drawing.Size(112, 89);
@@ -1083,7 +1083,7 @@
             // 
             this.pictureBox11.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox11.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bKing;
+            this.pictureBox11.Image = global::WinFormsChess.Properties.Resources.bKing;
             this.pictureBox11.Location = new System.Drawing.Point(357, 3);
             this.pictureBox11.Name = "pictureBox11";
             this.pictureBox11.Size = new System.Drawing.Size(112, 89);
@@ -1097,7 +1097,7 @@
             // 
             this.pictureBox10.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox10.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bBishop;
+            this.pictureBox10.Image = global::WinFormsChess.Properties.Resources.bBishop;
             this.pictureBox10.Location = new System.Drawing.Point(239, 3);
             this.pictureBox10.Name = "pictureBox10";
             this.pictureBox10.Size = new System.Drawing.Size(112, 89);
@@ -1111,7 +1111,7 @@
             // 
             this.pictureBox9.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox9.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bKnight;
+            this.pictureBox9.Image = global::WinFormsChess.Properties.Resources.bKnight;
             this.pictureBox9.Location = new System.Drawing.Point(121, 3);
             this.pictureBox9.Name = "pictureBox9";
             this.pictureBox9.Size = new System.Drawing.Size(112, 89);
@@ -1125,7 +1125,7 @@
             // 
             this.pictureBox8.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox8.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.bRook;
+            this.pictureBox8.Image = global::WinFormsChess.Properties.Resources.bRook;
             this.pictureBox8.Location = new System.Drawing.Point(3, 3);
             this.pictureBox8.Name = "pictureBox8";
             this.pictureBox8.Size = new System.Drawing.Size(112, 89);
@@ -1163,7 +1163,7 @@
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox4.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wQueen;
+            this.pictureBox4.Image = global::WinFormsChess.Properties.Resources.wQueen;
             this.pictureBox4.Location = new System.Drawing.Point(249, 3);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(117, 118);
@@ -1177,7 +1177,7 @@
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox3.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wBishop;
+            this.pictureBox3.Image = global::WinFormsChess.Properties.Resources.wBishop;
             this.pictureBox3.Location = new System.Drawing.Point(372, 3);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(118, 118);
@@ -1191,7 +1191,7 @@
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wKnight;
+            this.pictureBox2.Image = global::WinFormsChess.Properties.Resources.wKnight;
             this.pictureBox2.Location = new System.Drawing.Point(3, 3);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(117, 118);
@@ -1205,7 +1205,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::_20201126_Test_of_Button_Concept.Properties.Resources.wRook;
+            this.pictureBox1.Image = global::WinFormsChess.Properties.Resources.wRook;
             this.pictureBox1.Location = new System.Drawing.Point(126, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(117, 118);
