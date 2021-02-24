@@ -13,7 +13,7 @@ namespace _20201126_Test_of_Button_Concept
             InitializeComponent();
         }
 
-        bool playerOneTurn = true;                                  //playerOne = white
+        bool whitePlayerTurn = true;                                //track who needs to move
         bool isFirstClick = true;                                   //differentiate between selecting a piece to move and selecting a destination square    
         bool foundCheck = false;                                    //denote that the active player is in check
         int candidateMoves = 0;                                     //track the number of moves the active player could make (ignoring those that put himself into check)
@@ -45,7 +45,7 @@ namespace _20201126_Test_of_Button_Concept
                 firstSelection = sender as PictureBox;                                              //grab the clicked picturebox
                 string pieceTag = (string)firstSelection.Tag;
                 Console.WriteLine("first selection tag was " + firstSelection.Tag);
-                if (playerOneTurn && pieceTag[0] == 'w' || !playerOneTurn && pieceTag[0] == 'b')    //if they chose one of their own pieces
+                if (whitePlayerTurn && pieceTag[0] == 'w' || !whitePlayerTurn && pieceTag[0] == 'b')    //if they chose one of their own pieces
                 {
                     cloneFirstSelectionPictureBox();                                                //store the attributes of the first picturebox before changing it
                     firstSelection.BackColor = activePieceColor;                            //highlight the cell                                                               
@@ -87,7 +87,7 @@ namespace _20201126_Test_of_Button_Concept
                     }
                     else                                                                //successful move
                     {
-                        playerOneTurn = !playerOneTurn;                                 //switch turn
+                        whitePlayerTurn = !whitePlayerTurn;                             //switch turn
                         movesThatCauseCheck = 0;                                        //reset before selectAllPieces()
                         candidateMoves = 0;                                             //^
                         selectAllPieces();                                              //goes through all of the possible moves of the active player (not the one who just moved)  
@@ -95,7 +95,7 @@ namespace _20201126_Test_of_Button_Concept
                         unHighlightMoves();
                         if (movesThatCauseCheck == candidateMoves)                      //the player who just moved has left his opponent no viable moves -> CheckMate       
                         {
-                            MessageBox.Show("checkMate");
+                            MessageBox.Show("CheckMate!");
                             checkMateSequence();
                         }
                     }
@@ -105,7 +105,7 @@ namespace _20201126_Test_of_Button_Concept
             Control endRowControl = checkEndRows();                                     //if a pawn has reached the opposite end of the board this returns that control, otherwise null
             if (endRowControl != null)
             {
-                playerOneTurn = !playerOneTurn;     //temporarily switch back to playerOneTurn to make switchToPromotionMenu() more inutitive. It is switched back in the function
+                whitePlayerTurn = !whitePlayerTurn;     //temporarily switch back to whitePlayerTurn to make switchToPromotionMenu() more inutitive. It is switched back in the function
                 switchtoPromotionMenu();   //pops up a menu where the played can choose a piece to promote their pawn into, updates the pieces and tests if the promotion causes checkmate
             }
             
@@ -135,7 +135,7 @@ namespace _20201126_Test_of_Button_Concept
         {
             secondSelection.BackColor = activePieceColor;                                                       //highlight the current piece
             pieceCausingCheck.BackColor= checkPieceColor;                                                   //highlight the piece causing check
-            if (playerOneTurn)
+            if (whitePlayerTurn)
             {
                 gridTLP.GetControlFromPosition(whiteKingCol, whiteKingRow).BackColor= checkPieceColor;      //highlight the king that is in check
             }
@@ -151,12 +151,12 @@ namespace _20201126_Test_of_Button_Concept
             secondSelection.Tag = copyOfSecondSelection.Tag;
             secondSelection.Image = copyOfSecondSelection.Image;
 
-            if (playerOneTurn && (string)firstSelection.Tag == "wKing")     //if a player moved their king, update the ints that store where it is located to reflect undoing the move
+            if (whitePlayerTurn && (string)firstSelection.Tag == "wKing")     //if a player moved their king, update the ints that store where it is located to reflect undoing the move
             {
                 whiteKingCol = gridTLP.GetColumn(firstSelection);
                 whiteKingRow = gridTLP.GetRow(firstSelection);
             }
-            if (!playerOneTurn && (string)firstSelection.Tag == "bKing")    //^
+            if (!whitePlayerTurn && (string)firstSelection.Tag == "bKing")    //^
             {
                 blackKingCol = gridTLP.GetColumn(firstSelection);
                 blackKingRow = gridTLP.GetRow(firstSelection);
@@ -165,35 +165,49 @@ namespace _20201126_Test_of_Button_Concept
         }
         private void updateDisplay()
         {   //called after each turn
+            moveCount++;
             movesLabel.Text = "Move number: " + moveCount;
-            if (!playerOneTurn)
+            if (!whitePlayerTurn)
             {
-                playerTurnButton.Text = "2";
+                playerTurnButton.Text = "B";
                 playerTurnButton.ForeColor = System.Drawing.Color.Black;
             }
             else
             {
-                playerTurnButton.Text = "1";
+                playerTurnButton.Text = "W";
                 playerTurnButton.ForeColor = System.Drawing.Color.White;
             }
         }
         public void checkMateSequence()
         {
+            gridTLP.Enabled = false;                    //disable the normal grid
+            playerTurnButton.Visible = false;           //make the other display items that are in the way of the pomotion information invisible
+            playerTurnLabel.Visible = false;            //^
+            movesLabel.Visible = false;                 //^
+            gameTimeLabel.Visible = false;              //^
+            timer.Stop();                               //halt the timer to display the time the game took
+            if (whitePlayerTurn) {                        
+                checkMateLabel.Text = "Black player is the winner! Play again?";            //white is in check
+            }
+            else
+            {
+                checkMateLabel.Text = "White player is the winner! Play again?";            //black is in check    
+            }
+            checkMateTLP.Visible = true;
+
 
         }
         public class pictureBoxInformation
         {       //this class is not functionally neccesary, but provides easier access to the properties of the PictureBox it derives from
-                //that way we can call on mypictureBoxInformation.pieceTitle rather than 
-            public int startRow;
-            public int startCol;
-            public string pieceTitle;
-            public string pieceType;
-            public string pieceColor;
-            public pictureBoxInformation(int _startCol, int _startRow, string _pieceTitle, string _pieceType, string _pieceColor)
+                //that way we can call on (for example) 'activePicBoxInfo.pieceColor' (rather than calling on '((string)activePicBox.Tag).Substring(0, 1)'
+            public int startRow;        //the row the control was located in
+            public int startCol;        //the column the control was located in
+            public string pieceType;    //"eg. 'Pawn' or 'Rook'
+            public string pieceColor;   //either 'b' or 'w'
+            public pictureBoxInformation(int _startCol, int _startRow, string _pieceType, string _pieceColor) 
             {
                 startCol = _startCol;
                 startRow = _startRow;
-                pieceTitle = _pieceTitle;
                 pieceType = _pieceType;
                 pieceColor = _pieceColor;
             }
@@ -208,14 +222,14 @@ namespace _20201126_Test_of_Button_Concept
                     string thisPiece = (string)c.Tag;
                     if (thisPiece.Substring(0, 1) == "w")
                     {
-                        if (playerOneTurn)                                  //only add it to the list if it begins with the correct letter (w for white, b for black)
+                        if (whitePlayerTurn)                                  //only add it to the list if it begins with the correct letter (w for white, b for black)
                         {
                             playersRemainingPieces.Add((Control)c);
                         }
                     }
                     else if (thisPiece.Substring(0, 1) == "b")
                     {
-                        if (!playerOneTurn)
+                        if (!whitePlayerTurn)
                         {
                             playersRemainingPieces.Add((Control)c);
                         }
@@ -230,7 +244,7 @@ namespace _20201126_Test_of_Button_Concept
                 scanForAvailableMoves(playersRemainingPieces[i]);           //count the number of candidateMoves and the number that put themself in check 
             }
 
-            if (playerOneTurn)                                              //console output - this is only used to demonstrate and debug the program                                         
+            if (whitePlayerTurn)                                              //console output - this is only used to demonstrate and debug the program                                         
             {
                 Console.WriteLine("white can make " + candidateMoves + ". Of these, " + movesThatCauseCheck + " cause check, leaving " + (candidateMoves - movesThatCauseCheck) + " possible moves");
             }
@@ -250,7 +264,7 @@ namespace _20201126_Test_of_Button_Concept
             string pieceTitle = (string)activePicBox.Tag;
             string pieceColor = pieceTitle.Substring(0, 1);
             string pieceType = pieceTitle.Substring(1, pieceTitle.Length - 1);
-            pictureBoxInformation currentPiece = new pictureBoxInformation(startCol, startRow, pieceTitle, pieceType, pieceColor);
+            pictureBoxInformation currentPiece = new pictureBoxInformation(startCol, startRow, pieceType, pieceColor);
             findReachableSquares(currentPiece);                                 //use the newly created pictureBoxInformation to find which squares are reachable
         }
         private void findReachableSquares(pictureBoxInformation currentMove)
@@ -462,7 +476,7 @@ namespace _20201126_Test_of_Button_Concept
                                                 //...has attempted a move that causes check
             Control kingToCheck = gridTLP.GetControlFromPosition(whiteKingCol, whiteKingRow);
 
-            if (!playerOneTurn)
+            if (!whitePlayerTurn)
             {
                 kingToCheck = gridTLP.GetControlFromPosition(blackKingCol, blackKingRow);
             }
@@ -471,7 +485,7 @@ namespace _20201126_Test_of_Button_Concept
             string pieceTitle = (string)kingToCheck.Tag;
             string pieceColor = pieceTitle.Substring(0, 1);
             string pieceType = pieceTitle.Substring(1, pieceTitle.Length - 1);
-            pictureBoxInformation currentPiece = new pictureBoxInformation(startCol, startRow, pieceTitle, pieceType, pieceColor);
+            pictureBoxInformation currentPiece = new pictureBoxInformation(startCol, startRow, pieceType, pieceColor);
             checkSearch(currentPiece);
         }
 
@@ -672,7 +686,7 @@ namespace _20201126_Test_of_Button_Concept
             {                                                   //...this loop makes sure the images and tags on those PictureBoxes match the current player
                 string controlTag = (string)c.Tag;              //...to ensure their pawn is promoted to a piece of their own color 
 
-                if (playerOneTurn)
+                if (whitePlayerTurn)
                 {
                     if (controlTag[0] == 'w')
                     {
@@ -709,6 +723,7 @@ namespace _20201126_Test_of_Button_Concept
             gameTimeLabel.Visible = false;              //^
 
         }
+
         private void onPromotionClick(object sender, EventArgs e)
         {           //player has selected a piece they want to turn their pawn into
             PictureBox selection = sender as PictureBox;
@@ -724,15 +739,15 @@ namespace _20201126_Test_of_Button_Concept
             playerTurnLabel.Visible = true;             //^
             movesLabel.Visible = true;                  //^
             gameTimeLabel.Visible = true;               //^
-            playerOneTurn = !playerOneTurn;             //switch player back, ready for the next move
+            whitePlayerTurn = !whitePlayerTurn;         //switch player back, ready for the next move
             movesThatCauseCheck = 0;                    //reset this for this to zero for the upcoming selectAllPieces()
             candidateMoves = 0;                         //^
             selectAllPieces();                          //now need to test how many moves are possible for the opponent, and how many would cause check
             unHighlightMoves();
             if (movesThatCauseCheck == candidateMoves)
             {
-
-                MessageBox.Show("checkMate");
+                MessageBox.Show("CheckMate!");
+                checkMateSequence();
             }
         }
 
@@ -747,6 +762,14 @@ namespace _20201126_Test_of_Button_Concept
             {
                 gameTimeLabel.Text = "Game time: " + timeInSeconds / 60 + "m" + timeInSeconds % 60 + "s";
             }
+        }
+        private void quitButton_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void playAgainButton_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
     }
 
