@@ -36,6 +36,7 @@ namespace _20201126_Test_of_Button_Concept
             {
                 firstSelection = sender as PictureBox;                                              //grab the clicked picturebox
                 string pieceTag = (string)firstSelection.Tag;
+                Console.WriteLine("first selection tag was " + firstSelection.Tag);
                 if (playerOneTurn && pieceTag[0] == 'w' || !playerOneTurn && pieceTag[0] == 'b')    //if they chose one of their own pieces
                 {
                     cloneFirstSelectionPictureBox();                                                //store the attributes of the first picturebox before changing it
@@ -50,7 +51,6 @@ namespace _20201126_Test_of_Button_Concept
             {
                 secondSelection = sender as PictureBox;                                             //grab the clicked picturebox
                 isFirstClick = true;
-
                 if (secondSelection.BackColor != System.Drawing.Color.Pink)                         //if player selects any unhighlighted (non reachable) square
                 {
                     unHighlightMoves();                                                             //remove the highlighting of all cells 
@@ -99,12 +99,14 @@ namespace _20201126_Test_of_Button_Concept
                 unHighlightMoves();
                 switchtoPromotionMenu();   //pops up a menu where the played can choose a piece to promote their pawn into, updates the pieces and tests if the promotion causes checkmate
             }
+            
         }
 
         public void cloneFirstSelectionPictureBox()
         {
             copyOfFirstSelection.BackColor = firstSelection.BackColor;     //store the attributes of the first picturebox before changing it                 
             copyOfFirstSelection.Image = firstSelection.Image;
+            copyOfFirstSelection.Tag = firstSelection.Tag;
         }
         public void cloneSecondSelectionPictureBox()
         {
@@ -449,10 +451,10 @@ namespace _20201126_Test_of_Button_Concept
         private void checkSearch(pictureBoxInformation currentMove)
         {
             //explore moving Orthogonally
-            int offset = 1;
+            int offset = 1;             
             while (!foundCheck && exploreSquares(offset, 0, currentMove, "Ortho"))  //ortho denotes an orthogonal move
-            {
-                offset++;
+            {                       //the foundcheck bool is set to true when check is found - this prevents movesThatCause check from being incremented more than once on the same square
+                offset++;           //...such as when the king would be put in check my more than one opponent piece
             }
             offset = -1;
             while (!foundCheck && exploreSquares(offset, 0, currentMove, "Ortho"))
