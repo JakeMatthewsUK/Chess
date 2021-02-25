@@ -106,9 +106,9 @@
             this.movesLabel = new System.Windows.Forms.Label();
             this.gameTimeLabel = new System.Windows.Forms.Label();
             this.checkMateTLP = new System.Windows.Forms.TableLayoutPanel();
-            this.checkMateLabel = new System.Windows.Forms.Label();
-            this.playAgainButton = new System.Windows.Forms.Button();
             this.quitButton = new System.Windows.Forms.Button();
+            this.playAgainButton = new System.Windows.Forms.Button();
+            this.checkMateLabel = new System.Windows.Forms.Label();
             this.gridTLP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox95)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox94)).BeginInit();
@@ -1285,37 +1285,16 @@
             this.checkMateTLP.Controls.Add(this.checkMateLabel, 0, 0);
             this.checkMateTLP.Location = new System.Drawing.Point(12, 785);
             this.checkMateTLP.Name = "checkMateTLP";
-            this.checkMateTLP.RowCount = 6;
+            this.checkMateTLP.RowCount = 2;
             this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.checkMateTLP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.checkMateTLP.Size = new System.Drawing.Size(983, 161);
             this.checkMateTLP.TabIndex = 14;
             this.checkMateTLP.Visible = false;
-            // 
-            // checkMateLabel
-            // 
-            this.checkMateTLP.SetColumnSpan(this.checkMateLabel, 2);
-            this.checkMateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkMateLabel.Location = new System.Drawing.Point(112, 13);
-            this.checkMateLabel.Name = "checkMateLabel";
-            this.checkMateLabel.Size = new System.Drawing.Size(855, 67);
-            this.checkMateLabel.TabIndex = 0;
-            this.checkMateLabel.Text = "Player 1 is the winner! Play again?";
-            this.checkMateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // playAgainButton
-            // 
-            this.playAgainButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.playAgainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playAgainButton.Location = new System.Drawing.Point(157, 98);
-            this.playAgainButton.Name = "playAgainButton";
-            this.playAgainButton.Size = new System.Drawing.Size(187, 49);
-            this.playAgainButton.TabIndex = 1;
-            this.playAgainButton.Text = "Play Again";
-            this.playAgainButton.UseVisualStyleBackColor = true;
-            this.playAgainButton.Click += new System.EventHandler(this.playAgainButton_Click);
             // 
             // quitButton
             // 
@@ -1323,13 +1302,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.quitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quitButton.Location = new System.Drawing.Point(645, 98);
+            this.quitButton.Location = new System.Drawing.Point(494, 83);
             this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(238, 49);
+            this.quitButton.Size = new System.Drawing.Size(486, 75);
             this.quitButton.TabIndex = 2;
             this.quitButton.Text = "Quit";
             this.quitButton.UseVisualStyleBackColor = true;
             this.quitButton.Click += new System.EventHandler(this.quitButton_Click);
+            // 
+            // playAgainButton
+            // 
+            this.playAgainButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.playAgainButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playAgainButton.Location = new System.Drawing.Point(3, 83);
+            this.playAgainButton.Name = "playAgainButton";
+            this.playAgainButton.Size = new System.Drawing.Size(485, 75);
+            this.playAgainButton.TabIndex = 1;
+            this.playAgainButton.Text = "Play Again";
+            this.playAgainButton.UseVisualStyleBackColor = true;
+            this.playAgainButton.Click += new System.EventHandler(this.playAgainButton_Click);
+            // 
+            // checkMateLabel
+            // 
+            this.checkMateTLP.SetColumnSpan(this.checkMateLabel, 2);
+            this.checkMateLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMateLabel.Location = new System.Drawing.Point(3, 0);
+            this.checkMateLabel.Name = "checkMateLabel";
+            this.checkMateLabel.Size = new System.Drawing.Size(855, 67);
+            this.checkMateLabel.TabIndex = 0;
+            this.checkMateLabel.Text = "Player 1 is the winner! Play again?";
+            this.checkMateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
