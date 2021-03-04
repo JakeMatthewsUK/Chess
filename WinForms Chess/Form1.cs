@@ -169,20 +169,17 @@ namespace WinFormsChess
             movesLabel.Text = "Move number: " + moveCount;
             if (!whitePlayerTurn)
             {
-                playerTurnButton.Text = "B";
-                playerTurnButton.ForeColor = System.Drawing.Color.Black;
+                playerTurnLabel.Text = "Black player: it's your turn.";
             }
             else
             {
-                playerTurnButton.Text = "W";
-                playerTurnButton.ForeColor = System.Drawing.Color.White;
+                playerTurnLabel.Text = "White player: it's your turn.";
             }
         }
         public void checkMateSequence()
         {
             gridTLP.Enabled = false;                    //disable the normal grid
-            playerTurnButton.Visible = false;           //make the other display items that are in the way of the pomotion information invisible
-            playerTurnLabel.Visible = false;            //^
+            playerTurnLabel.Visible = false;            //make the other display items that are in the way of the pomotion information invisible
             movesLabel.Visible = false;                 //^
             gameTimeLabel.Visible = false;              //^
             timer.Stop();                               //halt the timer to display the time the game took
@@ -274,33 +271,33 @@ namespace WinFormsChess
                 case "Pawn":                                        //the most awkward type
                     if (currentMove.pieceColor == "w")              //movement dependent on color (unlike other pieces)
                     {                                               //first test for vertical only moves
-                        if (canWeMoveHere(0, -1, currentMove))      //canWeMoveHere highlights only the cells we can move to based on the supplied movement vector arguments
+                        if (canItMoveHere(0, -1, currentMove))      //canItMoveHere highlights only the cells we can move to based on the supplied movement vector arguments
                         {                                           //It returns true if the move is viable, otherwise false
                             if (currentMove.startRow == 6)          //edge case where pawn is in start row and may be able to move 2 units
                             {
-                                canWeMoveHere(0, -2, currentMove);
+                                canItMoveHere(0, -2, currentMove);
                             }
                         }
-                        canWeMoveHere(-1, -1, currentMove);         //now test for diagonal attack moves
-                        canWeMoveHere(1, -1, currentMove);          //^
+                        canItMoveHere(-1, -1, currentMove);         //now test for diagonal attack moves
+                        canItMoveHere(1, -1, currentMove);          //^
                     }
                     else                                            //alternate situation where the tag of the active control begins with 'b' - it is a black piece
                     {
-                        if (canWeMoveHere(0, 1, currentMove))
+                        if (canItMoveHere(0, 1, currentMove))
                         {
                             if (currentMove.startRow == 1)
                             {
-                                canWeMoveHere(0, 2, currentMove);
+                                canItMoveHere(0, 2, currentMove);
                             }
                         }
-                        canWeMoveHere(-1, 1, currentMove);
-                        canWeMoveHere(1, 1, currentMove);
+                        canItMoveHere(-1, 1, currentMove);
+                        canItMoveHere(1, 1, currentMove);
                     }
                     break;
                 case "Knight":
                     for (int i = 0; i < 8; i++)                     //iterate through the global knightRowVector & knightColumnVector arrays to get the dy and dx values
                     {
-                        canWeMoveHere(knightRowVector[i], knightColumnVector[i], currentMove);
+                        canItMoveHere(knightRowVector[i], knightColumnVector[i], currentMove);
                     }
                     break;
                 case "Rook":
@@ -323,22 +320,22 @@ namespace WinFormsChess
         private void testOrthogonal(pictureBoxInformation currentMove)
         {
             int offset = 1;                                     //start off to the right of the active control and move right
-            while (canWeMoveHere(offset, 0, currentMove))       //call the function repeatedly until we find a non reachable square (or the edge of the board)
+            while (canItMoveHere(offset, 0, currentMove))       //call the function repeatedly until we find a non reachable square (or the edge of the board)
             {
                 offset++;
             }
             offset = -1;                                        //start the left of the active control and move left
-            while (canWeMoveHere(offset, 0, currentMove))
+            while (canItMoveHere(offset, 0, currentMove))
             {
                 offset--;
             }
             offset = 1;                                         //start below the active control and move down
-            while (canWeMoveHere(0, offset, currentMove))
+            while (canItMoveHere(0, offset, currentMove))
             {
                 offset++;
             }
             offset = -1;                                        //start above the active control and move up
-            while (canWeMoveHere(0, offset, currentMove))
+            while (canItMoveHere(0, offset, currentMove))
             {
                 offset--;
             }
@@ -346,27 +343,27 @@ namespace WinFormsChess
         private void testDiagonal(pictureBoxInformation currentMove)
         {
             int offset = 1;                                     //start below and to the right of the active control and move down and right
-            while (canWeMoveHere(offset, offset, currentMove))
+            while (canItMoveHere(offset, offset, currentMove))
             {
                 offset++;
             }
             offset = 1;                                         //start above and to the right of the active control and move up and right
-            while (canWeMoveHere(offset, -offset, currentMove))
+            while (canItMoveHere(offset, -offset, currentMove))
             {
                 offset++;
             }
             offset = 1;                                         //start below and to the left of the active control and move down and left
-            while (canWeMoveHere(-offset, offset, currentMove))
+            while (canItMoveHere(-offset, offset, currentMove))
             {
                 offset++;
             }
             offset = 1;                                         //start above and to the left of the active control and move up and left
-            while (canWeMoveHere(-offset, -offset, currentMove))
+            while (canItMoveHere(-offset, -offset, currentMove))
             {
                 offset++;
             }
         }
-        private bool canWeMoveHere(int columnVector, int rowVector, pictureBoxInformation currentMove)
+        private bool canItMoveHere(int columnVector, int rowVector, pictureBoxInformation currentMove)
         {
             int col = currentMove.startCol + columnVector;      //the column containing the PictureBox we are testing
             int row = currentMove.startRow + rowVector;         //the row containing the PictureBox we are testing
@@ -717,8 +714,7 @@ namespace WinFormsChess
             promotionTLP.Enabled = true;                //make them clickable
             piecePromotionLabel.Visible = true;         //display the text asking the player to choose a new piece
             gridTLP.Enabled = false;                    //disable the normal grid
-            playerTurnButton.Visible = false;           //make the other display items that are in the way of the pomotion information invisible
-            playerTurnLabel.Visible = false;            //^
+            playerTurnLabel.Visible = false;            //make the other display items that are in the way of the pomotion information invisible
             movesLabel.Visible = false;                 //^
             gameTimeLabel.Visible = false;              //^
 
@@ -735,7 +731,6 @@ namespace WinFormsChess
             piecePromotionLabel.Visible = false;
 
             gridTLP.Enabled = true;                     //re-enable and display the normal grid and labels
-            playerTurnButton.Visible = true;            //^
             playerTurnLabel.Visible = true;             //^
             movesLabel.Visible = true;                  //^
             gameTimeLabel.Visible = true;               //^
