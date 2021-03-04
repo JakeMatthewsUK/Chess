@@ -4,7 +4,7 @@ A two-player desktop chess application created using the Windows Forms library o
 
 ## Table of contents
 
-- [General Information](#general-info)
+- [General Information](#general-information)
 - [Sample Images](#sample-images)
 - [Technologies Used](#technologies-used)
 - [Setup](#setup)
@@ -13,7 +13,7 @@ A two-player desktop chess application created using the Windows Forms library o
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
-## General info
+## General information
 
 The aim of this project was to gain experience creating a GUI and using the C# language. Prior to this, the majority of code I have written was abstract and had at most a very basic user interface - examples include writing C++ algorithms on HackerRank and windows console applications. It was a new and refreshing experience being able to implement features that already existed, rather than building everything up from the most basic level.
 
