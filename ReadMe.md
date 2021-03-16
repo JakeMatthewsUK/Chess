@@ -19,7 +19,7 @@ The aim of this project was to gain experience creating a GUI and using the C# l
 
 The game is drawn using a main TableLayoutPanel containing 64 PictureBox Controls to represent squares on the board, some of which contain a background image of a chess piece. A player clicks on a chess piece, triggering a function that highlights the active piece and also the squares on the grid it can reach. The player can click on the same piece again (or any unhighlighted square) to deactivate the piece. If they click on a highlighted square they will move to that square, unless a function detects it would put their own king in check and prevents the move.
 
-After each move it scans through the opponent's pieces and calculates the number of viable moves (those that are legal and do not cause check). If this reaches 0, CheckMate is declared and the game ends. In keeping with the traditional game, there is also a function to promote a pawn if it reaches the opposing end of the board - this is implemented using a separate TableLayoutPanel presenting the pieces they can choose from.
+After each move it scans through the opponent's pieces and calculates the number of viable moves (those that are legal and do not cause check). If this reaches zero, CheckMate is declared and the game ends. In keeping with the traditional game, there is also a function to promote a pawn if it reaches the opposing end of the board - this is implemented using a separate TableLayoutPanel presenting the pieces they can choose from.
 
 ## Sample Images
 
