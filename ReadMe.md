@@ -15,7 +15,7 @@ A two-player desktop chess application created using the Windows Forms library o
 
 ## General information
 
-The aim of this project was to gain experience creating a GUI and using the C# language. Prior to this, the majority of code I have written was abstract and had at most a very basic user interface - examples include writing C++ algorithms on HackerRank and windows console applications. It was a new and refreshing experience being able to implement features that already existed, rather than building everything up from the most basic level.
+The aim of this project was to gain experience creating a GUI and using the C# language. Prior to this, the majority of code I have written was abstract and had at most a very basic user interface - examples include writing C++ algorithms on HackerRank and windows console applications. It was a new experience being able to implement features that already existed, rather than building everything up from the most basic level.
 
 The game is drawn using a main TableLayoutPanel containing 64 PictureBox Controls to represent squares on the board, some of which contain a background image of a chess piece. A player clicks on a chess piece, triggering a function that highlights the active piece and also the squares on the grid it can reach. The player can click on the same piece again (or any unhighlighted square) to deactivate the piece. If they click on a highlighted square they will move to that square, unless a function detects it would put their own king in check and prevents the move.
 
@@ -102,7 +102,7 @@ To play the game, please download the 'WinForms Chess.exe' file in the top level
         }
     }
 
-#### ...channeling the flow of information through different paths within the same functions significantly reduced the amount of code needed; otherwise it would have been neccesary to write separate but similar functions for different types of chess piece.
+#### ...channeling the flow of information through different paths within the same functions significantly reduced the amount of code needed; otherwise it would have been neccesary to write many separate but similar functions for different types of chess piece.
 
 ## Features
 
@@ -113,7 +113,7 @@ Some things I like about the project:
 
 Some possible improvements:
 
-- There are some other standard chess moves and rules (such as castling, en passant capture) that have not been implemented as doing so will not significantly further the core objective of the project (to gain experience in the .Net Framework).
+- There are some other standard chess moves and rules (such as castling, en passant capture) that have not been implemented as they do not further my learning goals.
 - An online or local network version would be useful as an exercise in developing a game over a network
 
 ## Current Status
