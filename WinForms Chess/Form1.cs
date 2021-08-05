@@ -18,8 +18,8 @@ namespace WinFormsChess
         bool foundCheck = false;                                    //denote that the active player is in check
         int candidateMoves = 0;                                     //track the number of moves the active player could make (ignoring those that put himself into check)
         int movesThatCauseCheck = 0;                                //if (candidateMoves-movesThatCauseCheck)==0, the game is in CheckMate 
-        int whiteKingRow = 7, whiteKingCol = 3;                       //track the position of the white king                   
-        int blackKingRow = 0, blackKingCol = 3;                       //track the position of the black king   
+        int whiteKingRow = 7, whiteKingCol = 4;                     //track the position of the white king                   
+        int blackKingRow = 0, blackKingCol = 4;                     //track the position of the black king   
         int moveCount = 0;                                          //to display the total number of moves made so far
         int timeInSeconds = 0;                                      //display the time taken so far
         int[] knightRowVector = { -2, -2, -1, -1, 1, 1, 2, 2 };     //iterating through these two arrays in step gives the column and row offsets in the 8 possible knight moves 

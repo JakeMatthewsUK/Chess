@@ -321,7 +321,7 @@
             // 
             this.pictureBox92.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox92.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox92.Image = global::WinFormsChess.Properties.Resources.wQueen;
+            this.pictureBox92.Image = global::WinFormsChess.Properties.Resources.wKing;
             this.pictureBox92.Location = new System.Drawing.Point(354, 541);
             this.pictureBox92.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox92.Name = "pictureBox92";
@@ -329,14 +329,14 @@
             this.pictureBox92.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox92.TabIndex = 60;
             this.pictureBox92.TabStop = false;
-            this.pictureBox92.Tag = "wQueen";
+            this.pictureBox92.Tag = "wKing";
             this.pictureBox92.Click += new System.EventHandler(this.onClick);
             // 
             // pictureBox91
             // 
             this.pictureBox91.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox91.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox91.Image = global::WinFormsChess.Properties.Resources.wKing;
+            this.pictureBox91.Image = global::WinFormsChess.Properties.Resources.wQueen;
             this.pictureBox91.Location = new System.Drawing.Point(266, 541);
             this.pictureBox91.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox91.Name = "pictureBox91";
@@ -344,7 +344,7 @@
             this.pictureBox91.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox91.TabIndex = 59;
             this.pictureBox91.TabStop = false;
-            this.pictureBox91.Tag = "wKing";
+            this.pictureBox91.Tag = "wQueen";
             this.pictureBox91.Click += new System.EventHandler(this.onClick);
             // 
             // pictureBox90
@@ -1129,7 +1129,7 @@
             // 
             this.pictureBox12.BackColor = System.Drawing.Color.LightYellow;
             this.pictureBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox12.Image = global::WinFormsChess.Properties.Resources.bQueen;
+            this.pictureBox12.Image = global::WinFormsChess.Properties.Resources.bKing;
             this.pictureBox12.Location = new System.Drawing.Point(354, 2);
             this.pictureBox12.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox12.Name = "pictureBox12";
@@ -1137,14 +1137,14 @@
             this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox12.TabIndex = 4;
             this.pictureBox12.TabStop = false;
-            this.pictureBox12.Tag = "bQueen";
+            this.pictureBox12.Tag = "bKing";
             this.pictureBox12.Click += new System.EventHandler(this.onClick);
             // 
             // pictureBox11
             // 
             this.pictureBox11.BackColor = System.Drawing.Color.SandyBrown;
             this.pictureBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox11.Image = global::WinFormsChess.Properties.Resources.bKing;
+            this.pictureBox11.Image = global::WinFormsChess.Properties.Resources.bQueen;
             this.pictureBox11.Location = new System.Drawing.Point(266, 2);
             this.pictureBox11.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox11.Name = "pictureBox11";
@@ -1152,7 +1152,7 @@
             this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox11.TabIndex = 3;
             this.pictureBox11.TabStop = false;
-            this.pictureBox11.Tag = "bKing";
+            this.pictureBox11.Tag = "bQueen";
             this.pictureBox11.Click += new System.EventHandler(this.onClick);
             // 
             // pictureBox10
